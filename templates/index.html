@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Heart Disease Prediction</title>
+    <style>
+        /* Body & Background */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f44336, #ff7961);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        /* Card container */
+        .card {
+            background-color: white;
+            padding: 30px 40px;
+            border-radius: 15px;
+            box-shadow: 0px 10px 30px rgba(0,0,0,0.2);
+            width: 450px;
+            max-width: 90%;
+        }
+
+        h1 {
+            text-align: center;
+            color: #f44336;
+            margin-bottom: 25px;
+        }
+
+        /* Inputs & Selects */
+        input[type="number"], select {
+            width: 100%;
+            padding: 10px 12px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+            box-sizing: border-box;
+            transition: border 0.3s;
+        }
+
+        input:focus, select:focus {
+            border-color: #f44336;
+            outline: none;
+        }
+
+        /* Button */
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #f44336;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background-color: #d32f2f;
+        }
+
+        /* Result */
+        .result {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+            padding: 10px;
+            border-radius: 8px;
+        }
+
+        .result.positive { background-color: #ffebee; color: #c62828; }
+        .result.negative { background-color: #e8f5e9; color: #2e7d32; }
+
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <h1>Heart Disease Prediction</h1>
+
+    <form action="{{ url_for('predict_datapoint') }}" method="post">
+        <input type="number" name="Age" placeholder="Age" required>
+
+        <select name="Sex" required>
+            <option value="">Select Sex</option>
+            <option value="0">Female</option>
+            <option value="1">Male</option>
+        </select>
+
+        <select name="Chest_pain_type" required>
+            <option value="">Chest Pain Type</option>
+            <option value="0">Typical Angina</option>
+            <option value="1">Atypical Angina</option>
+            <option value="2">Non-anginal Pain</option>
+            <option value="3">Asymptomatic</option>
+        </select>
+
+        <input type="number" name="BP" placeholder="Resting Blood Pressure" required>
+        <input type="number" name="Cholesterol" placeholder="Cholesterol" required>
+
+        <select name="FBS_over_120" required>
+            <option value="">Fasting Blood Sugar > 120?</option>
+            <option value="0">No</option>
+            <option value="1">Yes</option>
+        </select>
+
+        <select name="EKG_results" required>
+            <option value="">EKG Results</option>
+            <option value="0">Normal</option>
+            <option value="1">ST-T Wave Abnormality</option>
+            <option value="2">Left Ventricular Hypertrophy</option>
+        </select>
+
+        <input type="number" name="Max_HR" placeholder="Maximum Heart Rate" required>
+
+        <select name="Exercise_angina" required>
+            <option value="">Exercise Induced Angina?</option>
+            <option value="0">No</option>
+            <option value="1">Yes</option>
+        </select>
+
+        <input type="number" step="0.1" name="ST_depression" placeholder="ST Depression" required>
+
+        <select name="Slope_of_ST" required>
+            <option value="">Slope of ST</option>
+            <option value="0">Upsloping</option>
+            <option value="1">Flat</option>
+            <option value="2">Downsloping</option>
+        </select>
+
+        <select name="Number_of_vessels_fluro" required>
+            <option value="">Number of Major Vessels (0-3)</option>
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+        </select>
+
+        <select name="Thallium" required>
+            <option value="">Thallium Test Result</option>
+            <option value="1">Normal</option>
+            <option value="2">Fixed Defect</option>
+            <option value="3">Reversible Defect</option>
+        </select>
+
+        <button type="submit">Predict</button>
+    </form>
+
+    {% if result is not none %}
+        <div class="result {% if 'HAS' in result %}positive{% else %}negative{% endif %}">
+            {{ result }}
+        </div>
+    {% endif %}
+</div>
+
+</body>
+</html>

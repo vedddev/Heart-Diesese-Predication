@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Heart Disease Prediction</title>
+
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            margin: 40px;
+        }
+
+        h1 {
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+
+        input[type="text"] {
+            display: block;
+            width: 250px;
+            padding: 6px;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        button {
+            padding: 6px 16px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        h2 {
+            margin-top: 30px;
+            font-size: 22px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+<h1>Heart Disease Prediction</h1>
+
+<form action="{{ url_for('predict_datapoint') }}" method="post">
+
+    <input type="text" name="Age" placeholder="Age" required>
+
+    <input type="text" name="Sex" placeholder="Sex (0 = Female, 1 = Male)" required>
+
+    <input type="text" name="Chest_pain_type" placeholder="Chest Pain Type (0-3)" required>
+
+    <input type="text" name="BP" placeholder="Resting Blood Pressure" required>
+
+    <input type="text" name="Cholesterol" placeholder="Cholesterol" required>
+
+    <input type="text" name="FBS_over_120" placeholder="FBS over 120 (0/1)" required>
+
+    <input type="text" name="EKG_results" placeholder="EKG Results (0-2)" required>
+
+    <input type="text" name="Max_HR" placeholder="Maximum Heart Rate" required>
+
+    <input type="text" name="Exercise_angina" placeholder="Exercise Angina (0/1)" required>
+
+    <input type="text" name="ST_depression" placeholder="ST Depression" required>
+
+    <input type="text" name="Slope_of_ST" placeholder="Slope of ST (0-2)" required>
+
+    <input type="text" name="Number_of_vessels_fluro" placeholder="Number of Vessels (0-3)" required>
+
+    <input type="text" name="Thallium" placeholder="Thallium (1-3)" required>
+
+    <button type="submit">Predict</button>
+
+</form>
+
+{% if result is not none %}
+    <h2>Prediction Result: {{ result }}</h2>
+{% endif %}
+
+</body>
+</html>
+
